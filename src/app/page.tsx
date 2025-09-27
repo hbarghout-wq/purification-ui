@@ -1,4 +1,3 @@
-cat > src/app/page.tsx <<'EOF'
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -10,7 +9,7 @@ export default function Home() {
 
   useEffect(() => {
     const base = process.env.NEXT_PUBLIC_API_BASE!;
-    fetch(`${base}/health`)
+    fetch(`${base}/health`, { cache: "no-store" })
       .then(r => r.json())
       .then(setHealth)
       .catch(() => setHealth({ error: "network_error" }));
@@ -24,11 +23,8 @@ export default function Home() {
   return (
     <main style={{maxWidth:720,margin:"2rem auto",padding:"1rem"}}>
       <h1>Purification MVP</h1>
-      <p>Status: <strong style={{color: status==="OK" ? "green":"crimson"}}>
-        {status}
-      </strong></p>
+      <p>Status: <strong style={{color: status==="OK" ? "green":"crimson"}}>{status}</strong></p>
       <p><Link href="/calc">Go to Calculator →</Link></p>
     </main>
   );
 }
-EOF
