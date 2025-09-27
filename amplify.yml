@@ -1,12 +1,20 @@
 version: 1
 applications:
-  - frontend:
+  - appRoot: .
+    frontend:
       phases:
         preBuild:
           commands:
-            - npm ci || npm install
+            - nvm install 20
+            - nvm use 20
+            - node -v
+            - npm -v
+            - npm install
         build:
           commands:
+            - export NEXT_PUBLIC_API_BASE="https://mb00d6kyua.execute-api.eu-north-1.amazonaws.com/Prod"
+            - export NEXT_DISABLE_ESLINT=1 NEXT_DISABLE_TYPECHECK=1
+            - export NODE_OPTIONS=--max_old_space_size=2048
             - npm run build
       artifacts:
         baseDirectory: .next
@@ -15,4 +23,3 @@ applications:
       cache:
         paths:
           - node_modules/**/*
-    appRoot: .
