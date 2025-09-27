@@ -18,7 +18,7 @@ export default function Home() {
   const status =
     !health ? "Checking..." :
     "error" in health ? "DOWN" :
-    health.ok ? "OK" : "DOWN";
+    (health.ok ? "OK" : "DOWN");
 
   return (
     <main style={{maxWidth:720,margin:"2rem auto",padding:"1rem"}}>
