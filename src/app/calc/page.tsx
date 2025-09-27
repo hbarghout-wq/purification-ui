@@ -30,8 +30,9 @@ export default function Calc() {
         }),
       });
       setResObj(await r.json());
-    } catch (e:any) {
-      setResObj({ error: "NETWORK_ERROR", message: String(e) });
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      setResObj({ error: "NETWORK_ERROR", message: msg });
     } finally { setLoading(false); }
   }
 
